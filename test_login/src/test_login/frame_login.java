@@ -3,12 +3,15 @@ package test_login;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 
 public class frame_login extends JFrame implements ActionListener {
     
     private JTextField name_Field;
     private JPasswordField pass_Field;
     private JButton loginButton, registrateButton;
+    
     
     public frame_login() {
         
@@ -63,7 +66,6 @@ public class frame_login extends JFrame implements ActionListener {
         }
         
         if (e.getSource() == registrateButton) {
-            
         	frame_registrate register = new frame_registrate();            
         }
     }

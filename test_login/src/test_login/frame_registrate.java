@@ -1,11 +1,14 @@
 package test_login;
 
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,17 +23,17 @@ public class frame_registrate extends JFrame implements ActionListener {
     private JPasswordField pass_Field;
     private JButton submitButton;
     private GridBagConstraints gbc = new GridBagConstraints();
+    public static File loginFile = new File("loginfile.txt");
+    
 	
 	public frame_registrate(){
 		
 		
 		setTitle("Registrate Screen");
         setSize(300, 125);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
                 
-       
-		
         JPanel panel = new JPanel(new  GridBagLayout());
         
         
@@ -60,6 +63,7 @@ public class frame_registrate extends JFrame implements ActionListener {
         
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        submitButton.addActionListener(this);
         panel.add(submitButton, gbc);
                 
         add(panel);
@@ -68,8 +72,31 @@ public class frame_registrate extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getSource() == submitButton) {
+			
+			if(!loginFile.exists()) {
+        		try {
+					loginFile.createNewFile();
+				} 
+        		catch (IOException e1) {
+					e1.printStackTrace();
+				}
+        		
+        	}
+			FileWriter pw;
+			String password = new String(pass_Field.getPassword());
+			try {
+			pw = new FileWriter(loginFile, true);
+			pw.write(name_Field.getText() + " " + password + "\n");
+			pw.close();
+			}
+			catch(IOException e2) {
+				e2.printStackTrace();
+			}
+			
+			
+			
+		}
 	}
 
 }
