@@ -31,7 +31,6 @@ public class frame_registrate extends JFrame implements ActionListener {
 		
 		setTitle("Registrate Screen");
         setSize(300, 125);
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
                 
         JPanel panel = new JPanel(new  GridBagLayout());
@@ -93,9 +92,7 @@ public class frame_registrate extends JFrame implements ActionListener {
 			catch(IOException e2) {
 				e2.printStackTrace();
 			}
-			
-			
-			
+			dispose();
 		}
 	}
 

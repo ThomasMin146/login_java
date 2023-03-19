@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+
+
+import java.util.Scanner;
 
 public class frame_login extends JFrame implements ActionListener {
     
@@ -54,15 +57,38 @@ public class frame_login extends JFrame implements ActionListener {
         if (e.getSource() == loginButton) {
             String username = name_Field.getText();
             String password = new String(pass_Field.getPassword());
+            boolean isAu = false;
+             
             
-            if (username.equals("admin") && password.equals("password")) {
-                JOptionPane.showMessageDialog(this, "Login successful!");
-                dispose();
-            } 
+            // ------------------------------------------ FILE ---------------------------
+            File file = new File("loginfile.txt");
+
+    		try {
+    			Scanner inputBuffer = new Scanner(file);
+    			
+    			while (inputBuffer.hasNext()) {
+    				String line = inputBuffer.nextLine();
+    				String[] values = line.split(" ");
+    				
+    				if (username.equals(values[0]) && password.equals(values[1])) {
+    					isAu = true;
+    				}
+    			}
+    			
+    			if(isAu) {
+    				JOptionPane.showMessageDialog(this, "Login successful!");
+	                dispose();
+    			}
+    			
+    			else {
+    				JOptionPane.showMessageDialog(this, "Invalid username or password.");
+    			}
+
+    		} catch (FileNotFoundException fe) {
+    			fe.printStackTrace();
+    		}
+    		
             
-            else {
-                JOptionPane.showMessageDialog(this, "Invalid username or password.");
-            }
         }
         
         if (e.getSource() == registrateButton) {
